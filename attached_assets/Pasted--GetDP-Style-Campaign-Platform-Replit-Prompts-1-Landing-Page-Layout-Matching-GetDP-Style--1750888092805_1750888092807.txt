@@ -1,0 +1,408 @@
+# GetDP-Style Campaign Platform - Replit Prompts
+
+## 1. Landing Page Layout (Matching GetDP Style)
+
+```
+Create a landing page similar to GetDP with:
+
+HEADER:
+- Clean white header with logo on left
+- Navigation menu: "DISCOVER", "BROWSE CATEGORIES", "CREATE DP BANNER", "MY DP BANNERS"
+- Green "LOGIN" button on right
+- Simple, minimal design with good spacing
+
+HERO SECTION:
+- Large background image or gradient
+- Centered white text: "Get people connected to your brand"
+- Subtitle: "Promoting your event or organization has never been easier"
+- Two CTA buttons: "Browse Categories" (blue) and "Create Banner" (orange)
+
+TRENDING BANNERS SECTION:
+- "Trending Banners" heading with "View All" link
+- 2x2 grid of banner cards, each showing:
+  - Banner thumbnail image
+  - Title and brief description
+  - Small profile pictures of recent users
+  - View count and engagement stats
+  - Date created
+
+LATEST BANNERS SECTION:
+- Similar layout to trending
+- Show most recently created banners
+- Include promotional banners/ads mixed in
+
+BROWSE BY CATEGORY:
+- Grid of category cards with images
+- Categories like: Business, Tech, Music, Food, etc.
+- Clean card design with hover effects
+
+FOOTER:
+- Simple links and social media icons
+- Clean, minimal design
+
+Use React + Tailwind CSS, make fully responsive
+```
+
+## 2. Single Campaign Page (Like "Cracking the Code 1.0")
+
+```
+Create a campaign detail page with this exact structure:
+
+LEFT SIDEBAR (1/3 width):
+- Campaign badge/category tag
+- Large campaign title
+- Creator info with profile pictures
+- View count and engagement metrics
+- Description section with full campaign details
+- Social sharing buttons (Facebook, Twitter, LinkedIn, etc.)
+
+RIGHT MAIN AREA (2/3 width):
+- Large campaign banner preview image
+- Circular placeholder for user photo with "+" icon
+- "Your name" text placeholder area
+- Name input field below the banner
+- Green "Generate my DP" button
+- Checkbox: "Display my name and campaign publicly"
+- Small text: "Not sure how to create your personalized DP?"
+
+COMMENTS SECTION (below):
+- Comments count and sort options
+- Comment input area
+- List of existing comments
+- "Subscribe Comments Posts" option
+
+TRENDING SECTION (bottom):
+- Similar banner recommendations
+- 2x2 grid layout matching homepage
+
+Key features:
+- Real-time preview updates when user types name
+- Photo upload with drag-and-drop
+- Mobile-responsive stacked layout
+- Clean, professional design matching GetDP exactly
+```
+
+## 3. Backend API Structure
+
+```
+Create Express.js backend with these specific endpoints:
+
+CAMPAIGN ROUTES:
+- GET /api/campaigns - get all campaigns for homepage
+- GET /api/campaigns/trending - get trending campaigns
+- GET /api/campaigns/latest - get latest campaigns  
+- GET /api/campaigns/category/:category - get by category
+- GET /api/campaigns/:id - get single campaign details
+- POST /api/campaigns/:id/view - increment view count
+
+USER INTERACTION ROUTES:
+- POST /api/campaigns/:id/generate - generate personalized banner
+- POST /api/upload/photo - handle user photo uploads
+- GET /api/download/:filename - serve generated banners
+
+ADMIN ROUTES:
+- POST /api/admin/campaigns - create new campaign
+- PUT /api/admin/campaigns/:id - update campaign
+- DELETE /api/admin/campaigns/:id - delete campaign
+
+DATABASE SCHEMA:
+campaigns table:
+- id, title, description, category, template_url
+- creator_name, creator_avatar, view_count
+- placeholder_config (JSON for photo/text positions)
+- created_at, is_trending, is_featured
+
+generated_banners table:
+- id, campaign_id, user_name, photo_url, generated_url
+- created_at, download_count
+
+Include proper error handling, file validation, and CORS setup
+```
+
+## 4. Campaign Card Component
+
+```
+Create reusable campaign card components:
+
+HOMEPAGE CARD:
+- Rectangular card with banner thumbnail
+- Title and short description
+- Row of small user avatar circles
+- View count and date
+- Hover effects with subtle animation
+- Click to navigate to campaign page
+
+TRENDING CARD:
+- Larger featured card style
+- More prominent display
+- "Trending" badge overlay
+- Enhanced hover effects
+
+CATEGORY CARD:
+- Square format for category browsing
+- Category name overlay
+- Background image representing category
+- Banner count for each category
+
+Props needed:
+- campaign: { id, title, description, thumbnail, viewCount, createdAt, category }
+- userAvatars: array of recent user profile pictures
+- onClick: navigation handler
+- variant: 'default' | 'trending' | 'category'
+
+Use Tailwind for styling, include loading states
+```
+
+## 5. Photo Upload & Preview System
+
+```
+Build photo upload functionality exactly like GetDP:
+
+UPLOAD COMPONENT:
+- Circular placeholder with "+" icon in center
+- Drag and drop functionality
+- Click to browse files
+- Accept JPG, PNG, WebP formats
+- File size validation (max 5MB)
+- Image preview after upload
+- Crop/reposition tools
+
+REAL-TIME PREVIEW:
+- Live preview of banner as user types name
+- Photo overlay on campaign template
+- Text rendering with campaign fonts
+- Maintain aspect ratios
+- Mobile-responsive preview
+
+IMAGE PROCESSING:
+- Resize uploaded photos to fit placeholder
+- Apply circular crop if needed
+- Maintain image quality
+- Generate preview thumbnails
+- Handle different image orientations
+
+GENERATION SYSTEM:
+- Combine template + user photo + text
+- High-quality output (at least 1200px wide)
+- Fast processing (under 3 seconds)
+- Unique filename generation
+- Automatic cleanup of old files
+
+Use Canvas API or server-side image processing with Sharp
+```
+
+## 6. Mobile-Responsive Design
+
+```
+Implement mobile-first responsive design:
+
+MOBILE LAYOUT CHANGES:
+- Stack sidebar content above main content
+- Full-width banner preview
+- Larger touch targets for buttons
+- Simplified navigation menu (hamburger)
+- Optimized photo upload for mobile cameras
+
+BREAKPOINTS:
+- Mobile: < 768px (single column)
+- Tablet: 768px - 1024px (adjusted spacing)
+- Desktop: > 1024px (two-column layout)
+
+MOBILE-SPECIFIC FEATURES:
+- Camera access for direct photo capture
+- Touch-friendly photo cropping
+- Swipe gestures for banner navigation
+- Mobile share sheet integration
+- Optimized image sizes for mobile
+
+PERFORMANCE:
+- Lazy loading for banner images
+- Compressed images for mobile
+- Minimal JavaScript bundle
+- Fast loading times
+
+Use Tailwind responsive utilities, test on actual devices
+```
+
+## 7. Category System & Filtering
+
+```
+Implement category browsing like GetDP:
+
+CATEGORY STRUCTURE:
+- Business, Tech, Sports, Music, Events, Education, etc.
+- Each category has icon and banner count
+- Category landing pages with filtered results
+
+FILTERING FUNCTIONALITY:
+- Filter by category on homepage
+- Search functionality across all banners
+- Sort options: Trending, Latest, Most Popular
+- Tag-based filtering within categories
+
+CATEGORY PAGES:
+- Dedicated page for each category
+- Grid layout of relevant banners
+- Category-specific hero section
+- Breadcrumb navigation
+
+SEARCH IMPLEMENTATION:
+- Real-time search as user types
+- Search by banner title, description, tags
+- Search suggestions/autocomplete
+- Recent searches storage
+
+DATABASE QUERIES:
+- Efficient category filtering
+- Search indexing for fast results
+- Popular categories tracking
+- Related banner suggestions
+
+Include loading states and empty states for better UX
+```
+
+## 8. Banner Generation & Download
+
+```
+Create banner generation system:
+
+GENERATION PROCESS:
+1. User uploads photo and enters name
+2. Real-time preview updates
+3. Click "Generate my DP" button
+4. Server processes: template + photo + text
+5. Return download link for final banner
+
+TECHNICAL IMPLEMENTATION:
+- Canvas-based image composition
+- High-resolution output (1200x630 for social media)
+- Proper text rendering with custom fonts
+- Photo positioning and scaling
+- Format options (PNG/JPG)
+
+DOWNLOAD HANDLING:
+- Direct download links
+- Filename format: "campaign-name-user-name.png"
+- Download tracking/analytics
+- Mobile-friendly downloads
+- Share options after download
+
+CACHING & OPTIMIZATION:
+- Cache generated banners for 24 hours
+- Optimize file sizes for web
+- CDN integration for fast delivery
+- Background cleanup of old files
+
+ERROR HANDLING:
+- Invalid image formats
+- Processing failures
+- Timeout handling
+- User-friendly error messages
+
+Include progress indicators during generation
+```
+
+## 9. Admin Dashboard for Campaign Management
+
+```
+Build admin interface for managing campaigns:
+
+CAMPAIGN MANAGEMENT:
+- List all campaigns with edit/delete options
+- Create new campaign form:
+  - Title, description, category
+  - Template image upload
+  - Set photo placeholder position (visual editor)
+  - Set text areas and styling
+  - Preview before publishing
+
+ANALYTICS DASHBOARD:
+- Campaign performance metrics
+- Popular campaigns tracking
+- User engagement statistics
+- Download counts and trends
+
+TEMPLATE EDITOR:
+- Visual interface to position placeholders
+- Click and drag to set photo position
+- Text area positioning and styling
+- Font selection and color picker
+- Real-time preview of changes
+
+CONTENT MODERATION:
+- Review user-generated content
+- Moderate inappropriate banners
+- User feedback management
+- Campaign approval workflow
+
+Use React Admin or build custom interface with forms and tables
+```
+
+## 10. Database Schema & Sample Data
+
+```sql
+-- Campaigns table
+CREATE TABLE campaigns (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  title VARCHAR(255) NOT NULL,
+  description TEXT,
+  category VARCHAR(100),
+  template_url VARCHAR(500),
+  creator_name VARCHAR(255),
+  creator_avatar VARCHAR(500),
+  view_count INTEGER DEFAULT 0,
+  download_count INTEGER DEFAULT 0,
+  is_trending BOOLEAN DEFAULT FALSE,
+  is_featured BOOLEAN DEFAULT FALSE,
+  placeholder_config JSONB, -- {photoArea: {x, y, width, height, shape}, textAreas: [...]}
+  created_at TIMESTAMP DEFAULT NOW(),
+  updated_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Generated banners table
+CREATE TABLE generated_banners (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  campaign_id UUID REFERENCES campaigns(id),
+  user_name VARCHAR(255),
+  user_photo_url VARCHAR(500),
+  generated_banner_url VARCHAR(500),
+  is_public BOOLEAN DEFAULT FALSE,
+  created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Categories table
+CREATE TABLE categories (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  name VARCHAR(100) UNIQUE,
+  description TEXT,
+  icon_url VARCHAR(500),
+  banner_count INTEGER DEFAULT 0,
+  created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Sample data
+INSERT INTO campaigns (title, description, category, template_url, creator_name) VALUES
+('Cracking the Code 1.0', 'University Life Career Launch & Beyond', 'Education', '/templates/cracking-code.png', 'GAP Tutorials'),
+('Tech Conference 2024', 'Join us for the biggest tech event', 'Technology', '/templates/tech-conf.png', 'TechEvents'),
+('Music Festival', 'Summer music celebration', 'Music', '/templates/music-fest.png', 'EventOrg');
+```
+
+## Quick Start Implementation Order
+
+1. **Start with Homepage** (Prompt #1)
+2. **Add Campaign Detail Page** (Prompt #2)  
+3. **Implement Basic Backend** (Prompt #3)
+4. **Add Photo Upload** (Prompt #5)
+5. **Add Banner Generation** (Prompt #8)
+6. **Make it Mobile Responsive** (Prompt #6)
+
+## Key Design Elements to Match GetDP
+
+- **Colors**: White background, blue (#007bff) and orange (#fd7e14) accent colors, green buttons
+- **Typography**: Clean, modern fonts - Inter or similar
+- **Spacing**: Generous white space, consistent padding
+- **Cards**: Subtle shadows, rounded corners, hover effects
+- **Icons**: Simple, clean icons throughout
+- **Mobile**: Stack layout, larger touch targets
+
+This should give you everything needed to recreate GetDP's functionality and design!
