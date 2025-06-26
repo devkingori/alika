@@ -18,11 +18,25 @@ npm install
 
 ### Option A: Local PostgreSQL
 ```bash
-# Create database
-createdb getdp_db
+# Start PostgreSQL service (if not running)
+# On macOS with Homebrew:
+brew services start postgresql
+
+# On Ubuntu/Debian:
+sudo systemctl start postgresql
+
+# On Windows:
+# Start PostgreSQL from Services or pgAdmin
+
+# Create database and user
+psql postgres
+CREATE DATABASE getdp_db;
+CREATE USER getdp_user WITH PASSWORD 'your_secure_password';
+GRANT ALL PRIVILEGES ON DATABASE getdp_db TO getdp_user;
+\q
 
 # Your DATABASE_URL will be:
-# postgresql://your_username:your_password@localhost:5432/getdp_db
+# postgresql://getdp_user:your_secure_password@localhost:5432/getdp_db
 ```
 
 ### Option B: Cloud Database (Recommended)
