@@ -2,7 +2,8 @@ import type { Express } from "express";
 import express from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { setupAuth, isAuthenticated } from "./replitAuth";
+import { setupPassport, requireAuth, optionalAuth, UserRole, requireRole } from "./passportAuth";
+import authRoutes from "./authRoutes";
 import {
   insertCampaignSchema,
   insertCategorySchema,
@@ -29,8 +30,8 @@ const upload = multer({
 });
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Auth middleware
-  await setupAuth(app);
+  // Setup Passport authentication
+  setupPassport(app);
 
   // Ensure uploads directory exists
   if (!fs.existsSync("uploads")) {
@@ -44,17 +45,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.use("/uploads", express.static("uploads"));
   app.use("/generated", express.static("generated"));
 
-  // Auth routes
-  app.get("/api/auth/user", isAuthenticated, async (req: any, res) => {
-    try {
-      const userId = req.user.claims.sub;
-      const user = await storage.getUser(userId);
-      res.json(user);
-    } catch (error) {
-      console.error("Error fetching user:", error);
-      res.status(500).json({ message: "Failed to fetch user" });
-    }
-  });
+  // Authentication routes
+  app.use("/api/auth", authRoutes);
 
   // Initialize sample data
   app.post("/api/init-data", async (req, res) => {

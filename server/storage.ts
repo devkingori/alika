@@ -21,6 +21,7 @@ export interface IStorage {
   getUserByEmail(email: string): Promise<User | undefined>;
   createUser(user: UpsertUser): Promise<User>;
   upsertUser(user: UpsertUser): Promise<User>;
+  updateUserRefreshToken(userId: string, refreshToken: string | null, expiresAt: Date | null): Promise<void>;
   
   // Category operations
   getCategories(): Promise<Category[]>;
@@ -75,6 +76,17 @@ export class DatabaseStorage implements IStorage {
       })
       .returning();
     return user;
+  }
+
+  async updateUserRefreshToken(userId: string, refreshToken: string | null, expiresAt: Date | null): Promise<void> {
+    await db
+      .update(users)
+      .set({
+        refreshToken,
+        refreshTokenExpiresAt: expiresAt,
+        updatedAt: new Date(),
+      })
+      .where(eq(users.id, userId));
   }
 
   // Category operations

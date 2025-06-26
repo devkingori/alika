@@ -10,7 +10,7 @@ interface HeaderProps {
 }
 
 export default function Header({ onLogin, onLogout }: HeaderProps) {
-  const { isAuthenticated } = useAuth();
+  const { user, isAuthenticated, logout } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navigationItems = [
@@ -52,19 +52,33 @@ export default function Header({ onLogin, onLogout }: HeaderProps) {
           {/* Auth Button & Mobile Menu */}
           <div className="flex items-center space-x-4">
             {isAuthenticated ? (
-              <Button 
-                onClick={onLogout}
-                className="bg-success-green hover:bg-green-600 text-white px-6 py-2 font-medium"
-              >
-                LOGOUT
-              </Button>
+              <div className="flex items-center space-x-3">
+                <span className="text-sm text-gray-700">
+                  Welcome, {user?.firstName || 'User'}
+                </span>
+                <Button 
+                  onClick={logout}
+                  className="bg-success-green hover:bg-green-600 text-white px-6 py-2 font-medium"
+                >
+                  LOGOUT
+                </Button>
+              </div>
             ) : (
-              <Button 
-                onClick={onLogin}
-                className="bg-success-green hover:bg-green-600 text-white px-6 py-2 font-medium"
-              >
-                LOGIN
-              </Button>
+              <div className="flex items-center space-x-2">
+                <Button 
+                  onClick={() => window.location.href = '/login'}
+                  variant="outline"
+                  className="border-[hsl(207,90%,54%)] text-[hsl(207,90%,54%)] hover:bg-[hsl(207,90%,54%)] hover:text-white px-4 py-2 font-medium"
+                >
+                  LOGIN
+                </Button>
+                <Button 
+                  onClick={() => window.location.href = '/register'}
+                  className="bg-success-green hover:bg-green-600 text-white px-4 py-2 font-medium"
+                >
+                  SIGN UP
+                </Button>
+              </div>
             )}
             
             {/* Mobile Menu */}

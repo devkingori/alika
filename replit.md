@@ -29,10 +29,11 @@ GetDP is a full-stack web application that allows users to create personalized p
 ## Key Components
 
 ### Authentication System
-- **Provider**: Replit Auth integration using OpenID Connect
-- **Session Storage**: PostgreSQL-backed session store with 7-day TTL
-- **User Management**: Automatic user profile creation and management
-- **Protection**: Route-level authentication middleware
+- **Provider**: Passport.js with JWT token-based authentication
+- **Token Management**: Access tokens (30min) and refresh tokens (24h) with automatic rotation
+- **User Management**: Email/password registration with bcrypt hashing
+- **Role-Based Access**: User, admin, and moderator roles with middleware protection
+- **Session Storage**: JWT tokens stored in localStorage with automatic refresh handling
 
 ### Campaign Management
 - **Template System**: Predefined banner templates organized by categories
