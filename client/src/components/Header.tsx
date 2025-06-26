@@ -14,19 +14,13 @@ export default function Header({ onLogin, onLogout }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navigationItems = [
-    { label: "DISCOVER", href: "#" },
-    { label: "BROWSE CATEGORIES", href: "#categories" },
-    { label: "CREATE DP BANNER", href: "#" },
-    { label: "MY DP BANNERS", href: "#" },
+    { label: "DISCOVER", href: "/" },
+    { label: "BROWSE CATEGORIES", href: "/categories" },
+    { label: "CREATE DP BANNER", href: "/create" },
+    { label: "MY DP BANNERS", href: "/my-banners" },
   ];
 
-  const handleNavClick = (href: string) => {
-    if (href.startsWith("#")) {
-      const element = document.querySelector(href);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
-      }
-    }
+  const handleNavClick = () => {
     setMobileMenuOpen(false);
   };
 
@@ -45,11 +39,8 @@ export default function Header({ onLogin, onLogout }: HeaderProps) {
               <a
                 key={item.label}
                 href={item.href}
-                onClick={(e) => {
-                  if (item.href.startsWith("#")) {
-                    e.preventDefault();
-                    handleNavClick(item.href);
-                  }
+                onClick={() => {
+                  handleNavClick();
                 }}
                 className="text-gray-700 hover:text-[hsl(207,90%,54%)] transition-colors duration-200 font-medium"
               >
@@ -89,11 +80,8 @@ export default function Header({ onLogin, onLogout }: HeaderProps) {
                     <a
                       key={item.label}
                       href={item.href}
-                      onClick={(e) => {
-                        if (item.href.startsWith("#")) {
-                          e.preventDefault();
-                          handleNavClick(item.href);
-                        }
+                      onClick={() => {
+                        handleNavClick();
                       }}
                       className="text-gray-700 hover:text-[hsl(207,90%,54%)] transition-colors duration-200 font-medium py-2"
                     >
