@@ -100,8 +100,23 @@ GetDP is a full-stack web application that allows users to create personalized p
 
 ```
 Changelog:
-- June 25, 2025. Initial setup
+- June 26, 2025: Added Supabase database integration and local development setup
+- June 25, 2025: Initial setup
 ```
+
+## Local Development Setup
+
+### Environment Configuration
+The application now supports local development with proper environment variable loading:
+- Added dotenv configuration for loading `.env` files
+- Created comprehensive setup documentation for both local PostgreSQL and Supabase
+- Configured authentication with Replit Auth for local development
+
+### Database Integration
+- Successfully integrated with Supabase PostgreSQL database
+- Database schema automatically synchronized using Drizzle migrations
+- Sample data initialization working correctly
+- All API endpoints functioning with live database connection
 
 ## User Preferences
 
