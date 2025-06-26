@@ -1,3 +1,12 @@
+// Load environment variables first for local development
+if (process.env.NODE_ENV !== "production") {
+  try {
+    require("dotenv").config();
+  } catch (error) {
+    console.log("dotenv not available, using system environment variables");
+  }
+}
+
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
