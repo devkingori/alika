@@ -50,7 +50,7 @@ DATABASE_URL=postgresql://username:password@localhost:5432/getdp_db
 SESSION_SECRET=your-super-secret-session-key-here-at-least-32-characters
 
 # Required: Replit Auth (for authentication to work)
-REPL_ID=your-repl-id-from-replit
+REPL_ID=e16aeb79-1da3-420a-8769-1c0717f1c4e1
 REPLIT_DOMAINS=localhost:5000
 ISSUER_URL=https://replit.com/oidc
 
